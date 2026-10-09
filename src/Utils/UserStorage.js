@@ -17,7 +17,6 @@ export function addUsers(newUser) {
         return;
     }
     users.push(newUser);
-    startSession()
     setCurrentUser(newUser);
     localStorage.setItem(USERS_KEY, JSON.stringify(users));
 }
