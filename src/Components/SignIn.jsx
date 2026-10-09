@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { addUsers } from '../Utils/UserStorage'
+import { addUsers, validateDuplicateUser } from '../Utils/UserStorage'
 
 function SignIn() {
     const [visiblePassword, setVisiblePassword] = useState(false)
@@ -15,6 +15,11 @@ function SignIn() {
         e.preventDefault()
         if (password !== confirmPassword) {
             alert('Passwords do not match')
+            return
+        }
+        const isDuplicate = validateDuplicateUser(username, email);
+        if (isDuplicate) {
+            alert('Username or Email already exists')
             return
         }
         const user = {
