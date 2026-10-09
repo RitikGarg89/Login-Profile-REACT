@@ -17,6 +17,7 @@ export function addUsers(newUser) {
         return;
     }
     users.push(newUser);
+    startSession()
     setCurrentUser(newUser);
     localStorage.setItem(USERS_KEY, JSON.stringify(users));
 }
@@ -42,6 +43,7 @@ export function isUserLoggedIn() {
 
 // Save the currently logged-in user
 export function setCurrentUser(user) {
+    startSession();
     localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
 }
 
@@ -52,6 +54,7 @@ export function clearCurrentUser() {
 
 // Get the currently logged-in user
 export function getCurrentUser() {
+    isSessionValid();
     return JSON.parse(
         localStorage.getItem(CURRENT_USER_KEY) || "null"
     );
