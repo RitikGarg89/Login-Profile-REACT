@@ -1,6 +1,8 @@
 
 const USERS_KEY = "users";
 const CURRENT_USER_KEY = "currentUser";
+const SESSION_KEY = "sessionExpiry";
+const SESSION_DURATION = 5 * 60 * 1000; // 5 minutes
 
 // Get all registered users
 export function getUsers() {
@@ -67,4 +69,28 @@ export function removeUser() {
     clearCurrentUser();
 }
 
+
+export function startSession() {
+    const expiryTime = Date.now() + SESSION_DURATION;
+
+    localStorage.setItem(SESSION_KEY, String(expiryTime));
+}
+
+/* Check if the session is valid */
+export function isSessionValid() {
+    const expiryTime = Number(localStorage.getItem(SESSION_KEY));
+
+    if (!expiryTime || Date.now() >= expiryTime) {
+        endSession();
+        return false;
+    }
+
+    return true;
+}
+
+/* End the current session */
+export function endSession() {
+    localStorage.removeItem(SESSION_KEY);
+    clearCurrentUser();
+}
 
