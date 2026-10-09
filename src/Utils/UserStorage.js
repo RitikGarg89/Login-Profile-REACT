@@ -19,10 +19,17 @@ export function addUsers(newUser) {
     localStorage.setItem(USERS_KEY, JSON.stringify(users));
 }
 
-// validate user is exist or not
+// validate user is exist or not for Login
 export function validateUser(username, password) {
     const users = getUsers();
     const userExist = users.find(user => user.username === username && user.password === password);
+    return userExist ?? null;
+}
+
+// validate username is exist or not for SignIn
+export function validateDuplicateUser(username, email) {
+    const users = getUsers();
+    const userExist = users.find(user => user.username === username || user.email === email);
     return userExist ?? null;
 }
 

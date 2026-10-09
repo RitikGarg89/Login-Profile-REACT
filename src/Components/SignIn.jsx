@@ -33,7 +33,15 @@ function SignIn() {
             <form action="" onSubmit={handleSubmit} className='flex flex-col items-center justify-center gap-4'>
                 <div className='w-full'>
                     <label htmlFor="username">Username</label>
-                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder='Username' className='border border-gray-300 rounded-md px-4 py-2 w-full' required minLength={4} maxLength={20} />
+                    <input type="text" value={username} onChange={(e) => {
+                        const value = e.target.value;
+                        // Regex: alphanumeric + dots and underscores (no spaces, etc.)
+                        if (!/^([a-z0-9._]*)$/.test(value)) {
+                            alert("Only letters, numbers and underscores are allowed!")
+                            return;
+                        }
+                        setUsername(value)
+                    }} placeholder='Username' className='border border-gray-300 rounded-md px-4 py-2 w-full' required minLength={4} maxLength={20} />
                 </div>
                 <div className='w-full'>
                     <label htmlFor="email">Email</label>
