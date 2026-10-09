@@ -54,7 +54,6 @@ export function clearCurrentUser() {
 
 // Get the currently logged-in user
 export function getCurrentUser() {
-    isSessionValid();
     return JSON.parse(
         localStorage.getItem(CURRENT_USER_KEY) || "null"
     );
